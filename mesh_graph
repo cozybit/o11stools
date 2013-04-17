@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./get_mesh -l | ./mesh_gv | dot -Tsvg -o mesh.svg && gthumb mesh.svg

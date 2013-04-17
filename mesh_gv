@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# translate mesh link and path information into dot
+
+echo "digraph mesh {"
+echo "size=\"8.5\";"
+echo "node [fontname=helvetica]"
+
+while read link; do
+	# <type>,<lmac>,<pmac>
+	ltype=`echo $link | cut -f'1' -d','`
+	node=`echo $link | cut -f'2' -d',' | cut -f5-6 -d':'`
+	peer=`echo $link | cut -f'3' -d',' | cut -f5-6 -d':'`
+
+	case "$ltype" in
+		link)
+			state=`echo $link | cut -f'4' -d','`
+			edge="\"$node\" -> \"$peer\" "
+
+			if [ "$state" == "ESTAB" ]; then
+				edge="$edge [color=green];"
+			else
+				edge="$edge [color=red];"
+			fi
+			echo "$edge"
+			;;
+		mpath)
+			;;
+		*)
+			echo "oops choked on parsing link!"
+			echo "$link"
+			exit 1
+			;;
+	esac
+
+done
+
+echo "}"

@@ -1,0 +1,10 @@
+Some scripts to graph an o11s mesh.
+
+requirements:
+- nodes must be running avahi-daemon, and have a common hostname prefix
+  HOST_BASE. ipv6 mcast ping is probably better.
+- set SSH_KEY to point toward your private ssh key, and install the public key on
+  the nodes. A passphraseless key is included for you convenience.
+
+usage:
+- try ./mesh_graph
